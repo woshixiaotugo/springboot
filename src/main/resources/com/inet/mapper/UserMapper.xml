@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inet.mapper.UserMapper">
+	<select id="getByUsername" resultType="com.inet.entity.po.User">
+SELECT
+	id
+FROM
+USER
+WHERE
+	username = #{username};
+	</select>
+	<select id="getRoleIdByRoleName" resultType="java.lang.String">
+SELECT
+	id
+FROM
+	role
+WHERE
+	NAME = #{role}
+	</select>
+	<select id="getUserByUsername" resultType="com.inet.entity.po.User">
+SELECT
+	id,
+	username,
+	nickname,
+	phone_number,
+	photo_path,
+	last_login_time,
+	gmt_create
+FROM
+	user
+WHERE
+	username = #{username}
+	</select>
+	<select id="getRoleIdByUserId" resultType="java.lang.String">
+SELECT
+	role_id
+FROM
+	role_user
+WHERE
+	user_id = #{userId}
+	</select>
+	<select id="getRoleNameByRoleId" resultType="java.lang.String">
+SELECT
+	name
+FROM
+	role
+WHERE
+	id = #{roleId}
+	</select>
+	<select id="getUserByPassword" resultType="com.inet.entity.po.UserPassword">
+SELECT
+	id,
+	username,
+	password
+FROM
+	user_password
+WHERE
+	username = #{username}
+	AND password = #{password}
+	</select>
+    <insert id="saveUser">
+INSERT INTO USER ( id, username, nickname, phone_number, photo_path, gmt_create, gmt_modified )
+VALUES
+	(
+		#{id},
+		#{username},
+		#{nickname},
+		#{phoneNumber},
+		#{photoPath},
+		now(),
+		now())
+    </insert>
+	<insert id="saveRoleUser" parameterType="com.inet.entity.po.RoleUser">
+INSERT INTO role_user ( id, user_id, role_id, gmt_create, gmt_modified )
+VALUES
+	(
+	#{id},#{userId},#{roleId},now(),
+	now())
+	</insert>
+    <insert id="saveUserPassword">
+INSERT INTO user_password ( id, username, password, gmt_create, gmt_modified )
+VALUES
+	(
+		#{id},
+		#{username},
+		#{password},
+	now(),
+	now())
+    </insert>
+	<update id="upUserPassword" parameterType="java.lang.String">
+UPDATE user_password
+SET password = #{upPassword},
+gmt_modified = now()
+WHERE
+	username = #{username}
+	</update>
+</mapper>
