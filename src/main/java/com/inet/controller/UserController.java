@@ -78,6 +78,7 @@ public class UserController {
     public Result getTest(){
         System.out.print(":");
         System.out.print(":");
+        System.out.println("hcy");
         return new Result().result200("成功","nn");
     }
 
