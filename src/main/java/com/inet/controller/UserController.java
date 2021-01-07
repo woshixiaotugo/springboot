@@ -20,6 +20,9 @@ import javax.annotation.Resource;
 @RequestMapping("/userBase")
 public class UserController {
 
+    /**
+     * 自动注入的用户操作服务层对象
+     */
     @Resource
     private UserService userService;
 
