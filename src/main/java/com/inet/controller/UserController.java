@@ -77,6 +77,7 @@ public class UserController {
     @GetMapping("/test")
     public Result getTest(){
         System.out.print(":");
+        System.out.print(":");
         return new Result().result200("成功","nn");
     }
 
