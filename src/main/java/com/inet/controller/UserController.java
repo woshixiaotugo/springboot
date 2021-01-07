@@ -76,6 +76,7 @@ public class UserController {
     @ApiOperation("测试")
     @GetMapping("/test")
     public Result getTest(){
+        System.out.print(":");
         return new Result().result200("成功","nn");
     }
 
