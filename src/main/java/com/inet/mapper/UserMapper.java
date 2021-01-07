@@ -31,11 +31,10 @@ public interface UserMapper {
 
     /**
      * 通过账号密码查询数据库得知账号密码是否正确
-     * @param username:用户名
-     * @param password:用户密码
+     * @param userPassword:存储着用户账号密码的实体类
      * @return 查询到的用户密码关系表对象
      */
-    UserPassword getUserByPassword(String username, String password);
+    UserPassword getUserByPassword(UserPassword userPassword);
 
     /**
      * 通过用户名查询数据库获取用户信息

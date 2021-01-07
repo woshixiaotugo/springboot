@@ -37,4 +37,7 @@ public class UserVO implements Serializable {
 
     @ApiModelProperty(value = "创建时间")
     private String gmtCreate;
+
+    @ApiModelProperty(value = "修改时间")
+    private String gmtModified;
 }

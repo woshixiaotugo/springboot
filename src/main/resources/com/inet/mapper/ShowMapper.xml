@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inet.mapper.ShowMapper">
+    <select id="listNews" resultType="com.inet.entity.vo.NewVO">
+SELECT
+	information.id,
+	information.headline,
+	information.content,
+	information.author,
+	information.gmt_create,
+	information.gmt_modified
+FROM
+	information
+	LEFT JOIN information_type ON information.id = information_type.information_id
+	LEFT JOIN article_type ON information_type.type_id = article_type.id
+WHERE
+	article_type.type = "动态资讯"
+ORDER BY
+	information.gmt_create DESC
+	LIMIT #{page},#{cont}
+    </select>
+</mapper>

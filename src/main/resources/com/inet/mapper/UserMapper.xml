@@ -26,8 +26,8 @@ SELECT
 	nickname,
 	phone_number,
 	photo_path,
-	last_login_time,
-	gmt_create
+	gmt_create,
+	gmt_modified
 FROM
 	user
 WHERE

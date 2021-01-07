@@ -87,15 +87,14 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 用户登录
-     * @param username:用户名
-     * @param password：密码
+     * @param upd:存储着用户账号和密码的实体类
      * @param path:请求路径
      * @return 返回token
      */
     @Override
-    public Result getUser(String username, String password,String path) {
+    public Result getUser(UserPassword upd,String path) {
         //查询数据库是否存在此账号密码的用户
-        UserPassword userPassword = userMapper.getUserByPassword(username,password);
+        UserPassword userPassword = userMapper.getUserByPassword(upd);
         //如果查询结果不为空，那就是登录成功
         if (userPassword != null){
             //通过用户名去查询用户信息
@@ -106,25 +105,23 @@ public class UserServiceImpl implements UserService {
             userVO.setPassword(userPassword.getPassword());
             //将用户创建时间以yyyy-MM-dd HH:mm:ss格式存储到用户信息对象
             userVO.setGmtCreate(simpleDateFormat.format(user.getGmtCreate()));
+            //将用户修改时间以yyyy-MM-dd HH:mm:ss格式存储到用户信息对象
+            userVO.setGmtModified(simpleDateFormat.format(user.getGmtModified()));
             //将角色类型存储到用户信息对象
             userVO.setUserRole(userMapper.getRoleNameByRoleId(userMapper.getRoleIdByUserId(user.getId())));
             //使用UUID生成token
             String token = UUID.randomUUID().toString();
             //将token作为key，value为用户信息对象存入redis，并设置过期时长为7天
             redisTemplate.opsForValue().set(token,userVO, Duration.ofMinutes(10080L));
-            //实例化一个用来存储返回值的Map
-            Map<String,Object> map = new HashMap<>(1);
-            //将token存入map
-            map.put("token",token);
             //返回登录成功，并将token一并返回
-            return new Result().result200(map, path);
+            return new Result().result200(token, path);
         }else{
             return new Result().result403("密码错误", path);
         }
     }
 
     /**
-     * 通过token从redis中获取用户信息
+     * 获取用户信息,通过token从redis中获取用户信息
      * @param token:从请求头中获取到的token
      * @param path:请求路径
      * @return 自定义返回值
@@ -148,7 +145,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     *
+     * 修改密码
      * @param token:接收的客服端请求的信息对象
      * @param upPassword:用户更新后的密码
      * @param path:请求路径

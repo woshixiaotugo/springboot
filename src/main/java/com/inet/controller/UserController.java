@@ -1,6 +1,7 @@
 package com.inet.controller;
 
 import com.inet.entity.dto.RegisterDTO;
+import com.inet.entity.po.UserPassword;
 import com.inet.entity.vo.Result;
 import com.inet.service.UserService;
 import io.swagger.annotations.Api;
@@ -39,14 +40,13 @@ public class UserController {
 
     /**
      * 用户登录
-     * @param username:用户名
-     * @param password:密码
+     * @param userPassword:接收到的用户账号密码实体类
      * @return 自定义返回值
      */
     @ApiOperation("用户登录")
-    @GetMapping("/user")
-    public Result getUser(@RequestParam(value = "Username")String username,@RequestParam(value = "Password")String password){
-        return userService.getUser(username,password,"/nationalDefenseScience/userBase/user");
+    @PostMapping("/login")
+    public Result getUser(@RequestBody UserPassword userPassword){
+        return userService.getUser(userPassword,"/nationalDefenseScience/userBase/login");
     }
 
     /**

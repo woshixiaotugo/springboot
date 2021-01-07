@@ -1,6 +1,7 @@
 package com.inet.service;
 
 import com.inet.entity.dto.RegisterDTO;
+import com.inet.entity.po.UserPassword;
 import com.inet.entity.vo.Result;
 
 /**
@@ -17,12 +18,11 @@ public interface UserService {
 
     /**
      * 用户登录
-     * @param username:用户名
-     * @param password:密码
+     * @param userPassword:存储着用户账号密码的实体类
      * @param path:请求路径
      * @return com.inet.entity.vo.Result
      */
-    Result getUser(String username, String password,String path);
+    Result getUser(UserPassword userPassword, String path);
 
     /**
      * 展示当前登录中的用户信息
