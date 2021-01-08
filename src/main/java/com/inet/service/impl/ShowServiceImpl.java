@@ -5,11 +5,8 @@ import com.inet.entity.vo.Result;
 import com.inet.mapper.ShowMapper;
 import com.inet.service.ShowService;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @program: springboot
@@ -39,4 +36,5 @@ public class ShowServiceImpl implements ShowService {
         }
         return new Result().result500("未知错误",path);
     }
+
 }

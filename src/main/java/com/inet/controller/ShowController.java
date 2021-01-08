@@ -5,7 +5,6 @@ import com.inet.service.ShowService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -41,4 +40,6 @@ public class ShowController {
         }
         return showService.listNews(page,cont,"/nationalDefenseScience/show/news");
     }
+
+    @ApiOperation("")
 }

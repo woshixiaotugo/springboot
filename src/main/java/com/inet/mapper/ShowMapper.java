@@ -12,7 +12,7 @@ public interface ShowMapper {
      * 分页查询动态资讯
      * @param page:查询的是页数
      * @param cont:一页有几条
-     * @return
+     * @return list
      */
     List<Information> listNews(Integer page, Integer cont);
 }
